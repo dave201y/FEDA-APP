@@ -34,4 +34,15 @@ function Badge({ className, variant, ...props }: BadgeProps) {
   );
 }
 
+// Example usage in a Badge component
+<span
+  style={{
+    background: "var(--color-bhadge)",
+    color: "var(--color-text)",
+  }}
+  className="px-2 py-1 rounded-lg font-semibold"
+>
+  Badge
+</span>;
+
 export { Badge, badgeVariants };

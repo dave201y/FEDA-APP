@@ -1,11 +1,18 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-bhadge: #0095FF;
+  --color-moonstone: #3AAFA9;
+  --color-darkwhite: #F3F4F6;
+  --color-midnight: #1A2233;
+  --color-bg-gradient: linear-gradient(135deg, var(--color-midnight), var(--color-moonstone));
+  --color-bg-solid: var(--color-midnight);
+  --color-bg-alt: var(--color-moonstone);
+  --color-text: #F8FAFC; /* Very light, readable white */
+  --color-text-dark: #1A2233; /* For dark text on light backgrounds */
 }
 
-@theme inline {
+:root {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
@@ -20,7 +27,7 @@
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--color-bg-gradient);
+  color: var(--color-text);
   font-family: Arial, Helvetica, sans-serif;
 }

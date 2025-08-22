@@ -83,7 +83,10 @@ export default function RootLayout({
         <head>
           {/* Other head elements from your original layout.tsx */}
         </head>
-        <body className="h-full bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white antialiased">
+        <body className="h-full antialiased" style={{
+          background: "var(--color-bg-gradient)",
+          color: "var(--color-text)"
+        }}>
           <div className="min-h-screen grid grid-cols-1 md:grid-cols-[260px_1fr]">
             <style>{`
               :root {

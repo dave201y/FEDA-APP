@@ -54,6 +54,10 @@ export function Sidebar({ className, children, ...props }: SidebarProps) {
         className
       )}
       {...props}
+      style={{
+        background: "var(--color-bg-gradient)",
+        color: "var(--color-text)"
+      }}
     >
       {children}
     </aside>
