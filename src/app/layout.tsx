@@ -32,8 +32,11 @@ import {
   Shield,
   Sparkles,
   ArrowRight,
-  ChevronDown // Import ChevronDown icon
+  ChevronDown, // Import ChevronDown icon
+  Settings // Import Settings icon
 } from "lucide-react";
+import { SettingsDialog } from "./profile/SettingsDialog";
+import { Button } from "../app/components/ui/button";
 
 // Define the main navigation items (excluding categories, which are now dynamic)
 const navigationItems = [
@@ -67,6 +70,8 @@ export default function RootLayout({
 
   // State to control the visibility of the categories dropdown
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const [lockedCategories, setLockedCategories] = useState<string[]>([]);
 
   // Toggle function for the categories dropdown
   const toggleCategoriesDropdown = () => {
@@ -79,6 +84,12 @@ export default function RootLayout({
 
   return (
     <SidebarProvider>
+      <SettingsDialog
+        open={settingsOpen}
+        onOpenChange={setSettingsOpen}
+        lockedCategories={lockedCategories}
+        setLockedCategories={setLockedCategories}
+      />
       <html lang="en" className="h-full" suppressHydrationWarning>
         <head>
           {/* Other head elements from your original layout.tsx */}
@@ -197,21 +208,23 @@ export default function RootLayout({
                     <div className="overflow-hidden"> {/* Ensures content itself is clipped */}
                       <SidebarGroupContent>
                         <SidebarMenu className="space-y-2">
-                          {categories.map((category, index) => (
-                            <motion.div
-                              key={category.key}
-                              initial={{ opacity: 0, x: -20 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              transition={{ duration: 0.5, delay: 0.4 + index * 0.05 }}
-                            >
-                              <SidebarCategoryItem
-                                categoryKey={category.key}
-                                label={category.label}
-                                Icon={category.icon}
-                                gradient={category.color}
-                              />
-                            </motion.div>
-                          ))}
+                          {categories
+                            .filter(category => !lockedCategories.includes(category.key))
+                            .map((category, index) => (
+                              <motion.div
+                                key={category.key}
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.5, delay: 0.4 + index * 0.05 }}
+                              >
+                                <SidebarCategoryItem
+                                  categoryKey={category.key}
+                                  label={category.label}
+                                  Icon={category.icon}
+                                  gradient={category.color}
+                                />
+                              </motion.div>
+                            ))}
                         </SidebarMenu>
                       </SidebarGroupContent>
                     </div>
@@ -256,6 +269,14 @@ export default function RootLayout({
                     <p className="text-xs text-slate-400 truncate">Mindful viewer</p>
                   </div>
                 </motion.div>
+                <Button
+                  variant="secondary"
+                  className="w-full mt-2"
+                  onClick={() => setSettingsOpen(true)}
+                >
+                  <Settings className="w-4 h-4 mr-2" />
+                  Settings
+                </Button>
               </SidebarFooter>
             </Sidebar>
 
